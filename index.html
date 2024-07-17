@@ -1,0 +1,87 @@
+<html>
+
+<head> Chuck Norris Joke Generator 
+<!--Below is the javascript that fires when the button is clicked, somewhere, there's an asynchornous request with a callback-->
+  <!-- Just messing around with public APIs -->
+<script>
+//must use an asynchronous XMLHTTPRequest
+
+/*
+
+
+function xhrError() {
+  console.error(this.statusText);
+}
+
+function xhrSuccess() {
+  this.callback.apply(this, this.arguments);
+}
+
+*/
+function getRandomJoke(){
+
+    var joke;
+    //create new request object
+    const req = new XMLHttpRequest();
+    //open up/initializes a new request
+    req.open("GET", "https://api.chucknorris.io/jokes/random");
+
+
+    //send the request
+
+    req.send();
+
+    //onload is an event handler
+    req.onload = (e) =>{
+        if (req.readyState === 4){
+            if (req.status === 200) {
+              // want to try and use the JSON parse method to only select the value field of the response
+              // joke = req.response;
+              joke = JSON.parse(req.response).value;
+              console.log('Joke Loaded');
+              alert(joke);
+
+            } else {
+              console.log(`Error: ${req.status}`);
+            }
+        } ;
+
+    };
+    
+    //return the joke variable that holds the new joke returned in the request, only take the value of the JSON request
+    
+/*
+//might not be needed
+function displayJoke(joke){
+  
+  alert(joke);
+}  
+*/
+
+}
+
+</script>
+
+<style>
+  .a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+
+  button {
+    margin-top : 125px;
+    margin-left: 275px
+  }
+</style>
+</head>
+<body>
+
+<header>Somewhere in The Barrens...</header>
+    <!--Grab a Chuck noris joke from the https://api.chucknorris.io/ site and display it on the website, just make a button-->
+    <!-- OnClick, fire the api request to the website above-->
+<button class ="a" onclick="getRandomJoke()"> Click for a Chuck Norris Joke </button>
+
+</body>
+
+</html>
